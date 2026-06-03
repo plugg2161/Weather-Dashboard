@@ -11,7 +11,7 @@ async function fetchCity(city){
   return res.json();
 }
 
-function renderCard(data){
+function renderCard(data) {
   const link = document.createElement('a');
   link.href = `weather.html?city=${encodeURIComponent(data.name)}`;
   link.className = 'weather-card__link';

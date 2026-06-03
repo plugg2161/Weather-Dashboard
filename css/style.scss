@@ -1,5 +1,8 @@
 /* sass --watch style.scss style.css */
 
+@use "index.scss";
+@use "weather.scss";
+
 :root {
     --surface-0: #f0f0f0;
     --surface-1: #e0e0e0;
@@ -31,8 +34,22 @@ html {
     color: var(--text);
     background-color: var(--surface-1);
 }
+body {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+header {
+    background-color: var(--surface-1);
+}
+main {
+    flex-grow: 1;
+    overflow-y: auto;
+}
 body,
-p {
+p,
+h1 {
     margin: 0;
 }
 
@@ -50,6 +67,7 @@ button {
     background-color: var(--btn-bg);
     transition: background-color 0.1s ease-out;
     color: var(--text);
+    @extend .no-select;
     &:hover {
         background-color: color-mix(in srgb, var(--btn-bg), black 5%);
     }
@@ -67,37 +85,27 @@ input {
     color: var(--text);
 }
 
-.card {
-    padding: 1.5rem 1rem;
-    &__label {
-        color: var(--subtext);
-        margin-bottom: 8px;
-        @extend .no-select;
-    }
+.site-name {
+    font-size: 1.25rem;
+    font-weight: 500;
+    width: fit-content;
+    @extend .no-select;
 }
 
-.weather-card {
-    padding: 0.75rem 1rem;
-    background-color: var(--surface-0);
-    border-radius: 1rem;
-    transition: all 0.1s ease-out;
-    transform: scale(1);
-    &:hover {
-        background-color: color-mix(in srgb, var(--surface-0), black 10%);
-    }
-    &:active {
-        transform: scale(0.95);
-    }
+.header__container {
+    padding: 0.75rem 1.25rem;
+    margin: auto;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-    &__title {
-        font-size: 0.75rem;
-        font-weight: 600;
-        @extend .no-select;
-    }
-    &__temper {
-        font-size: 2rem;
-        line-height: 120%;
-        font-weight: 400;
-        @extend .no-select;
-    }
+.container {
+    padding: 1.5rem 1.25rem;
+    margin: auto;
+    max-width: 1200px;
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
 }

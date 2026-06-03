@@ -3,7 +3,83 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <link href="css/style.css" rel="stylesheet" />
+        <title>ГОРОД / Панель погоды</title>
     </head>
-    <body></body>
+    <body>
+        <header>
+            <div class="header__container">
+                <h1 class="site-name">Панель погоды</h1>
+                <button type="button" class="toggle-unit-btn">
+                    Показать в ℉
+                </button>
+            </div>
+        </header>
+        <main class="weather">
+            <div class="container">
+                <div class="button-group">
+                    <button type="button">Назад</button>
+                    <button type="button">В избранное</button>
+                </div>
+                <div class="main-info">
+                    <h2 class="weather__city">Загрузка...</h2>
+                    <div class="temper-group">
+                        <data value="" class="weather__temper">??℃</data>
+                        <p class="weather__wthr">Загрузка...</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="card__label">Погода на 6 дней</h3>
+                    <ul class="six-days-grid">
+                        <li class="six-days">
+                            <time datetime="" class="six-days__date">...</time>
+                            <span>...</span>
+                        </li>
+                        <li class="six-days">
+                            <time datetime="" class="six-days__date">...</time>
+                            <span>...</span>
+                        </li>
+                        <li class="six-days">
+                            <time datetime="" class="six-days__date">...</time>
+                            <span>...</span>
+                        </li>
+                        <li class="six-days">
+                            <time datetime="" class="six-days__date">...</time>
+                            <span>...</span>
+                        </li>
+                        <li class="six-days">
+                            <time datetime="" class="six-days__date">...</time>
+                            <span>...</span>
+                        </li>
+                        <li class="six-days">
+                            <time datetime="" class="six-days__date">...</time>
+                            <span>...</span>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="card-grid">
+                    <li class="card">
+                        <h3 class="card__label">Качество воздуха</h3>
+                        <span class="card__context">Загрузка...</span>
+                    </li>
+                    <li class="card">
+                        <h3 class="card__label">Качество воздуха</h3>
+                        <span class="card__context">Загрузка...</span>
+                    </li>
+                    <li class="card">
+                        <h3 class="card__label">Качество воздуха</h3>
+                        <span class="card__context">Загрузка...</span>
+                    </li>
+                    <li class="card">
+                        <h3 class="card__label">Качество воздуха</h3>
+                        <span class="card__context">Загрузка...</span>
+                    </li>
+                    <li class="card">
+                        <h3 class="card__label">Качество воздуха</h3>
+                        <span class="card__context">Загрузка...</span>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </body>
 </html>

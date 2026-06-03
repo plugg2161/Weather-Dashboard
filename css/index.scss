@@ -1,0 +1,51 @@
+@mixin no-select {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.form {
+    display: flex;
+    gap: 12px;
+    flex-grow: 1;
+}
+form input {
+    flex-grow: 1;
+}
+
+.weather-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.weather-card {
+    padding: 0.75rem 1rem;
+    background-color: var(--surface-0);
+    border-radius: 1rem;
+    transition: all 0.1s ease-out;
+    transform: scale(1);
+    &:hover {
+        background-color: color-mix(in srgb, var(--surface-0), black 10%);
+    }
+    &:active {
+        transform: scale(0.95);
+    }
+
+    &__title {
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin: 0;
+        @include no-select;
+    }
+    &__temper {
+        font-size: 2rem;
+        line-height: 120%;
+        font-weight: 400;
+        @include no-select;
+    }
+
+    &__link {
+        text-decoration: none;
+        color: inherit;
+    }
+}

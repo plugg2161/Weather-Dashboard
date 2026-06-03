@@ -1,12 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/style.css" rel="stylesheet">
-    <title>Document</title>
-</head>
-<body>
-    <p>Weather Dashboard in progerss!</p>
-</body>
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="css/style.css" rel="stylesheet" />
+        <title>Панель погоды</title>
+    </head>
+    <body>
+        <header>
+            <div class="header__container">
+                <h1 class="site-name">Панель погоды</h1>
+                <button type="button" class="toggle-unit-btn">
+                    Показать в ℉
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <form class="form">
+                    <input
+                        type="search"
+                        name="city"
+                        id="city-input"
+                        placeholder="Введите свой город"
+                        aria-label="Введите город для поиска погоды"
+                    />
+                    <button type="submit">Поиск</button>
+                </form>
+                <div class="weather-card-grid">
+                    <a href="weather.html" class="weather-card__link">
+                        <article class="weather-card">
+                            <h2 class="weather-card__title">Загрузка...</h2>
+                            <p class="weather-card__temper">??℃</p>
+                            <p class="no-select">Загрузка...</p>
+                        </article>
+                    </a>
+                </div>
+            </div>
+        </main>
+         <script src="script.js"></script>
+    </body>
 </html>

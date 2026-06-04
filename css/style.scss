@@ -2,6 +2,9 @@
 
 @use "index.scss";
 @use "weather.scss";
+@use "adaptive.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300..600&subsets=latin,latin-ext,cyrillic&display=swap");
 
 :root {
     --surface-0: #f0f0f0;
@@ -62,6 +65,8 @@ button {
     padding-block: 0.5rem;
     padding-inline: 1rem;
     font-size: 1rem;
+    font-family: inherit;
+    font-weight: inherit;
     border: 0;
     border-radius: 12px;
     background-color: var(--btn-bg);
@@ -82,7 +87,10 @@ input {
     border: 0;
     border-radius: 16px;
     font-size: 1.25rem;
+    font-family: inherit;
+    font-weight: inherit;
     color: var(--text);
+    min-width: 0;
 }
 
 .site-name {

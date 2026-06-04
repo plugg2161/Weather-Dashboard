@@ -12,12 +12,6 @@ form input {
     flex-grow: 1;
 }
 
-.weather-card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-
 .weather-card {
     padding: 0.75rem 1rem;
     background-color: var(--surface-0);
@@ -47,5 +41,12 @@ form input {
     &__link {
         text-decoration: none;
         color: inherit;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    &-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
     }
 }

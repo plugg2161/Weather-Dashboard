@@ -18,7 +18,7 @@ function renderCard(data) {
   link.innerHTML = `
     <article class="weather-card">
       <h2 class="weather-card__title">${data.name}</h2>
-      <p class="weather-card__temper">${Math.round(data.main.temp)}℃</p>
+      <p class="weather-card__temper">${Math.round(data.main.temp)}°C</p>
       <p class="no-select">${data.weather[0].description}</p>
     </article>
   `;

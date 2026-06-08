@@ -265,5 +265,81 @@ input {
   gap: 24px;
   flex-direction: column;
 }
+.hourly-section {
+  margin: 24px 0;
+  background: var(--card-bg, #fff);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
 
+.hourly-section .card__label {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.hourly-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.hourly-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.hourly-scroll::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 3px;
+}
+
+.hourly-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 60px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.hourly-item:hover {
+  background: #f1f5f9;
+}
+
+.hourly-time {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.hourly-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.hourly-temp {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.hourly-precip {
+  font-size: 0.75rem;
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .hourly-item {
+    min-width: 50px;
+    gap: 4px;
+  }
+  .hourly-icon { font-size: 1.25rem; }
+  .hourly-temp { font-size: 0.9rem; }
+}
 /*# sourceMappingURL=style.css.map */

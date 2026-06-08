@@ -47,19 +47,17 @@ backBtn.addEventListener('click', () => {
   }
 });
 
-favBtn.addEventListener('click', () => {
-  const saved = JSON.parse(localStorage.getItem('data')) || [];
-  if (!saved.some(c => c.toLowerCase() === cityName.toLowerCase())) {
-    saved.unshift(cityName);
-    localStorage.setItem('data', JSON.stringify(saved));
-    favBtn.textContent = 'В избранном ✓';
-    favBtn.disabled = true;
-    favBtn.style.opacity = '0.6';
-  } else {
-    favBtn.textContent = 'Уже в избранном ✓';
-    favBtn.disabled = true;
-    favBtn.style.opacity = '0.6';
-  }
+favBtn.addEventListener("click", () => {
+  let saved = JSON.parse(localStorage.getItem("weather_saved")) || [
+    "Москва",
+    "Санкт-Петербург",
+    "Лондон",
+  ];
+  saved = saved.filter((c) => c.toLowerCase() !== cityName.toLowerCase());
+  localStorage.setItem("weather_saved", JSON.stringify(saved));
+  favBtn.textContent = "Удалено";
+  favBtn.disabled = true;
+  favBtn.style.opacity = "0.6";
 });
 
 async function loadAllData(){
@@ -89,15 +87,23 @@ async function loadAllData(){
     renderForecast(weatherDataCache.daily);
     renderHourlyForecast(weatherDataCache.hourly);
 
-    const saved = JSON.parse(localStorage.getItem('data')) || [];
-    if (saved.some(c => c.toLowerCase() === cityName.toLowerCase())) {
-      favBtn.textContent = 'Уже в избранном ✓';
-      favBtn.disabled = true;
-      favBtn.style.opacity = '0.6';
-    }
+    const saved = JSON.parse(localStorage.getItem("weather_saved")) || [
+      "Москва",
+      "Санкт-Петербург",
+      "Лондон",
+    ];
 
-  } catch (err){
-    cityEl.textContent = 'Ошибка';
+    if (saved.some((c) => c.toLowerCase() === cityName.toLowerCase())) {
+      favBtn.textContent = "Удалить из избранного";
+      favBtn.disabled = false;
+      favBtn.style.opacity = "1";
+    } else {
+      favBtn.textContent = "Не в избранном";
+      favBtn.disabled = true;
+      favBtn.style.opacity = "0.6";
+    }
+  } catch (err) {
+    cityEl.textContent = "Ошибка";
     wthrEl.textContent = err.message;
     console.error(err);
     document.querySelector('.hourly-section')?.remove();

@@ -1,10 +1,16 @@
-const GEO_URL = 'https://geocoding-api.open-meteo.com/v1/search';
-const WEATHER_URL = 'https://api.open-meteo.com/v1/forecast';
-const REVERSE_GEO_URL = 'https://nominatim.openstreetmap.org/reverse';
-const form = document.querySelector('.form');
-const input = document.querySelector('#city-input');
-const grid = document.querySelector('.weather-card-grid');
-let savedCities = JSON.parse(localStorage.getItem('weather_saved')) || ['Москва', 'Санкт-Петербург', 'Лондон'];
+const GEO_URL = "https://geocoding-api.open-meteo.com/v1/search";
+const WEATHER_URL = "https://api.open-meteo.com/v1/forecast";
+const REVERSE_GEO_URL = "https://nominatim.openstreetmap.org/reverse";
+const form = document.querySelector(".form");
+const input = document.querySelector("#city-input");
+const grid = document.querySelector(".weather-card-grid");
+let savedCities = JSON.parse(localStorage.getItem("weather_saved")) || [
+  "Москва",
+  "Санкт-Петербург",
+  "Лондон",
+];
+const unitBtn = document.querySelector(".toggle-unit-btn");
+let currentUnit = localStorage.getItem("weather_unit") || "C";
 
 function getWeatherDescription(code) {
   const codes = {
@@ -39,13 +45,17 @@ async function getCityWeather(cityName) {
 }
 
 function renderCard(data) {
-  const link = document.createElement('a');
+  const link = document.createElement("a");
+  let displayTemp = Math.round(data.temp);
+  if (currentUnit === "F") {
+    displayTemp = Math.round(data.temp * 1.8 + 32);
+  }
   link.href = `weather.html?city=${encodeURIComponent(data.name)}`;
   link.className = 'weather-card__link';
   link.innerHTML = `
     <article class="weather-card">
       <h2 class="weather-card__title">${data.name}</h2>
-      <p class="weather-card__temper">${Math.round(data.temp)}°C</p>
+      <p class="weather-card__temper">${displayTemp}°${currentUnit}</p>
       <p class="no-select">${getWeatherDescription(data.code)}</p>
     </article>
   `;
@@ -121,6 +131,18 @@ form.addEventListener('submit', async (e) => {
   } catch (err){
     alert(err.message);
   }
+});
+
+if (currentUnit === "F") {
+  unitBtn.textContent = "Показать в °C";
+} else {
+  unitBtn.textContent = "Показать в °F";
+}
+unitBtn.addEventListener("click", () => {
+  currentUnit = currentUnit === "C" ? "F" : "C";
+  localStorage.setItem("weather_unit", currentUnit);
+  unitBtn.textContent = currentUnit === "C" ? "Показать в °F" : "Показать в °C";
+  initGrid();
 });
 
 initGrid();

@@ -12,6 +12,9 @@ const detailsGrid = document.querySelector('.card-grid');
 const buttons = document.querySelectorAll('.button-group button');
 const backBtn = buttons[0];
 const favBtn = buttons[1];
+const unitBtn = document.querySelector(".toggle-unit-btn");
+let currentUnit = localStorage.getItem("weather_unit") || "C";
+
 function getWeatherDescription(code) {
   const codes = {
     0: 'Ясно', 1: 'Преимущественно ясно', 2: 'Переменная облачность', 3: 'Пасмурно',
@@ -35,12 +38,33 @@ function getWeatherEmoji(code) {
 }
 
 function formatTemp(celsius) {
-  if (celsius === null || celsius === undefined) return '—';
+  if (celsius === null || celsius === undefined) return "—";
+  if (currentUnit === "F") {
+    const fahrenheit = celsius * 1.8 + 32;
+    return `${Math.round(fahrenheit)}°F`;
+  }
   return `${Math.round(celsius)}°C`;
 }
 
-backBtn.addEventListener('click', () => {
-  if (document.referrer && document.referrer.includes('index.html')) {
+if (currentUnit === "F") {
+  unitBtn.textContent = "Показать в °C";
+} else {
+  unitBtn.textContent = "Показать в °F";
+}
+unitBtn.addEventListener("click", () => {
+  currentUnit = currentUnit === "C" ? "F" : "C";
+  localStorage.setItem("weather_unit", currentUnit);
+  unitBtn.textContent = currentUnit === "C" ? "Показать в °F" : "Показать в °C";
+  if (weatherDataCache) {
+    renderTemperatures(weatherDataCache.current);
+    renderDetails(weatherDataCache.current);
+    renderForecast(weatherDataCache.daily);
+    renderHourlyForecast(weatherDataCache.hourly);
+  }
+});
+
+backBtn.addEventListener("click", () => {
+  if (document.referrer && document.referrer.includes("index.html")) {
     history.back();
   } else {
     window.location.href = 'index.html';
@@ -81,6 +105,9 @@ async function loadAllData(){
     if (!weatherRes.ok) throw new Error('Ошибка загрузки погоды');
 
     weatherDataCache = await weatherRes.json();
+
+    unitBtn.textContent =
+      currentUnit === "C" ? "Показать в °F" : "Показать в °C";
 
     renderTemperatures(weatherDataCache.current);
     renderDetails(weatherDataCache.current);

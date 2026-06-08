@@ -92,3 +92,52 @@ ul {
     column-gap: 12px;
     line-height: 140%;
 }
+
+.hourly {
+    &-section {
+        background-color: var(--surface-1);
+        border-radius: 24px;
+        padding: 16px 24px;
+    }
+    &-scroll {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #b0b0b0 transparent;
+    }
+    &-scroll::-webkit-scrollbar {
+        height: 6px;
+    }
+    &-scroll::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+    }
+    &-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        min-width: 60px;
+        padding: 8px;
+        border-radius: 8px;
+    }
+    &-time {
+        font-size: 0.75rem;
+        color: var(--subtext);
+        font-weight: 600;
+    }
+    &-icon {
+        font-size: 1.5rem;
+        line-height: 1;
+    }
+    &-temper {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text);
+    }
+    &-precip {
+        font-size: 0.75rem;
+        color: #3b82f6;
+        font-weight: 600;
+    }
+}

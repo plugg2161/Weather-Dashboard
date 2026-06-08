@@ -189,8 +189,8 @@ function renderHourlyForecast(hourly){
       <div class="hourly-item">
         <span class="hourly-time">${hour}</span>
         <span class="hourly-icon">${getWeatherEmoji(code)}</span>
-        <span class="hourly-temp">${temp}</span>
-        ${precip > 0 ? `<span class="hourly-precip">💧${precip}%</span>` : ''}
+        <span class="hourly-temper">${temp}</span>
+        ${precip > 0 ? `<span class="hourly-precip">💧${precip}%</span>` : ""}
       </div>
     `;
   }

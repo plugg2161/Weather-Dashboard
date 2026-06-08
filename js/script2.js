@@ -202,8 +202,8 @@ function renderHourlyForecast(hourly){
   }
   hourlyHTML += `</div></div>`;
 
-  const container = document.querySelector('.container');
-  const detailsGridEl = document.querySelector('.card-grid');
+  const container = document.querySelector(".container");
+  const detailsGridEl = document.querySelector(".card");
 
   const wrapper = document.createElement('div');
   wrapper.innerHTML = hourlyHTML;

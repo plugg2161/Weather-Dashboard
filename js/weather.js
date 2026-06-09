@@ -5,6 +5,7 @@ import {
   setupUnitToggle,
   getSavedCities,
   saveCities,
+  setupThemeToggle,
 } from "./script.js";
 const params = new URLSearchParams(window.location.search);
 const cityName = params.get("city") || "Москва";
@@ -233,4 +234,5 @@ function renderHourlyForecast(hourly) {
   container.insertBefore(wrapper.firstElementChild, detailsGridEl);
 }
 
+setupThemeToggle();
 loadAllData();

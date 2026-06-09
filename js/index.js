@@ -5,6 +5,7 @@ import {
   setupUnitToggle,
   getSavedCities,
   saveCities,
+  setupThemeToggle,
 } from "./script.js";
 const REVERSE_GEO_URL = "https://nominatim.openstreetmap.org/reverse";
 const form = document.querySelector(".form");
@@ -152,6 +153,8 @@ setupUnitToggle((newUnit) => {
   currentUnit = newUnit;
   initGrid();
 });
+
+setupThemeToggle();
 
 window.addEventListener("pageshow", (event) => {
   savedCities = getSavedCities();

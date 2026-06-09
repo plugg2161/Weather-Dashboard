@@ -2,7 +2,8 @@ export const GEO_URL = "https://geocoding-api.open-meteo.com/v1/search";
 export const WEATHER_URL = "https://api.open-meteo.com/v1/forecast";
 export let currentUnit = localStorage.getItem("weather_unit") || "C";
 export const DEFAULT_CITIES = ["Москва", "Санкт-Петербург", "Лондон"];
-export let currentTheme = localStorage.getItem("weather_theme") || "light";
+export let currentTheme =
+  localStorage.getItem("weather_theme") || getSystemTheme();
 
 document.documentElement.setAttribute("data-theme", currentTheme);
 
@@ -68,4 +69,10 @@ export function setupThemeToggle() {
     document.documentElement.setAttribute("data-theme", currentTheme);
     themeBtn.textContent = currentTheme === "light" ? "🌙" : "☀️";
   });
+}
+
+function getSystemTheme() {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }

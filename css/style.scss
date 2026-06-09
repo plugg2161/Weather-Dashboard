@@ -6,30 +6,32 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300..600&subsets=latin,latin-ext,cyrillic&display=swap");
 
+@mixin dark-theme {
+    --surface-0: #2a2a2a;
+    --surface-1: #1b1b1b;
+    --text: #ebebeb;
+    --subtext: #ebebeb9a;
+    --btn-bg: #393939;
+    --input-bg: #101010;
+}
+
 :root {
     --surface-0: #f0f0f0;
     --surface-1: #e0e0e0;
     --text: #1d1d1d;
     --subtext: #1d1d1d9a;
-    /* --text-white: #f0f0f0;
-    --subtext-white: #f0f0f0a7; */
-    /* --text-good: #4ab20e;
-    --text-warning: #b27718;
-    --text-bad: #d65733; */
     --btn-bg: #d3d3d3;
     --input-bg: #cfcfcf;
 }
 [data-theme="dark"] {
-    --surface-0: #2a2a2a;
-    --surface-1: #1b1b1b;
-    --text: #ebebeb;
-    --subtext: #ebebeb9a;
-    /* --text-good: #4ab20e;
-    --text-warning: #b27718;
-    --text-bad: #d65733; */
-    --btn-bg: #393939;
-    --input-bg: #101010;
+    @include dark-theme;
 }
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) {
+        @include dark-theme;
+    }
+}
+
 html {
     font-family:
         "Inter",
@@ -62,6 +64,7 @@ header {
 main {
     flex-grow: 1;
     overflow-y: auto;
+    scrollbar-color: #808080 transparent;
 }
 body,
 p,

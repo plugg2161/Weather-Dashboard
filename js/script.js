@@ -42,6 +42,22 @@ export function getWeatherDescription(code) {
   return codes[code] || "Неизвестно";
 }
 
+export function getWeatherTheme(code) {
+  if (code === 0 || code === 1) {
+    return "theme-sunny";
+  }
+  if (code === 2 || code === 3 || (code >= 45 && code <= 48)) {
+    return "theme-cloudy";
+  }
+  if ((code >= 51 && code <= 65) || (code >= 80 && code <= 82) || code >= 95) {
+    return "theme-rainy";
+  }
+  if (code >= 71 && code <= 75) {
+    return "theme-snowy";
+  }
+  return "weather";
+}
+
 export function setupUnitToggle(onUnitChange) {
   const unitBtn = document.querySelector(".toggle-unit-btn");
   if (!unitBtn) return;

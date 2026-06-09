@@ -6,6 +6,7 @@ import {
   getSavedCities,
   saveCities,
   setupThemeToggle,
+  getWeatherTheme,
 } from "./script.js";
 const params = new URLSearchParams(window.location.search);
 const cityName = params.get("city") || "Москва";
@@ -125,6 +126,18 @@ function renderTemperatures(current) {
   tempEl.textContent = formatTemp(current.temperature_2m);
   tempEl.value = current.temperature_2m;
   wthrEl.textContent = getWeatherDescription(current.weather_code);
+
+  const mainEl = document.querySelector("main");
+  if (mainEl) {
+    mainEl.classList.remove(
+      "theme-sunny",
+      "theme-cloudy",
+      "theme-rainy",
+      "theme-snowy",
+    );
+    const themeClass = getWeatherTheme(current.weather_code);
+    mainEl.classList.add(themeClass);
+  }
 }
 
 function renderDetails(current) {
@@ -202,7 +215,7 @@ function renderHourlyForecast(hourly) {
   const nextHoursCount = Math.min(12, hourly.time.length - startIndex);
 
   let hourlyHTML = `
-    <div class="hourly-section">
+    <div class="card">
       <h3 class="card__label">Погода в течение суток</h3>
       <div class="hourly-scroll">
   `;

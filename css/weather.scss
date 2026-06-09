@@ -9,6 +9,33 @@
 
 main.weather {
     background-color: var(--surface-0);
+    transition:
+        background-color 0.5s ease,
+        color 0.3s ease;
+    &.theme-sunny {
+        background-color: #226cb1;
+        --card-bg: #00000080;
+        color: #fff;
+        --subtext: #ffffff9a;
+    }
+    &.theme-cloudy {
+        background-color: #6e727a;
+        --card-bg: #00000080;
+        color: #fff;
+        --subtext: #ffffff9a;
+    }
+    &.theme-rainy {
+        background-color: #3b4a5a;
+        --card-bg: #00000080;
+        color: #fff;
+        --subtext: #ffffff9a;
+    }
+    &.theme-snowy {
+        background-color: #4a6984;
+        --card-bg: #00000080;
+        color: #ffffff;
+        --subtext: #ffffff9a;
+    }
 }
 
 ul {
@@ -59,6 +86,8 @@ ul {
     padding: 0.75rem 1.25rem;
     background-color: var(--surface-1);
     border-radius: 24px;
+    background-color: var(--card-bg, var(--surface-1));
+    transition: background-color 0.5s ease;
     &__label {
         color: var(--subtext);
         margin-top: 0;
@@ -94,11 +123,6 @@ ul {
 }
 
 .hourly {
-    &-section {
-        background-color: var(--surface-1);
-        border-radius: 24px;
-        padding: 16px 24px;
-    }
     &-scroll {
         display: flex;
         gap: 8px;
@@ -133,7 +157,6 @@ ul {
     &-temper {
         font-size: 1rem;
         font-weight: 500;
-        color: var(--text);
     }
     &-precip {
         font-size: 0.75rem;

@@ -6,6 +6,7 @@ import {
   getSavedCities,
   saveCities,
   setupThemeToggle,
+  getWeatherTheme,
 } from "./script.js";
 const REVERSE_GEO_URL = "https://nominatim.openstreetmap.org/reverse";
 const form = document.querySelector(".form");
@@ -44,19 +45,27 @@ async function getCityWeather(cityName) {
 
 function renderCard(data) {
   const link = document.createElement("a");
+  link.href = `weather.html?city=${encodeURIComponent(data.name)}&lat=${data.lat}&lon=${data.lon}`;
+  link.className = "weather-card__link";
+
   let displayTemp = Math.round(data.temp);
   if (currentUnit === "F") {
     displayTemp = Math.round(data.temp * 1.8 + 32);
   }
-  link.href = `weather.html?city=${encodeURIComponent(data.name)}&lat=${data.lat}&lon=${data.lon}`;
-  link.className = "weather-card__link";
-  link.innerHTML = `
-    <article class="weather-card">
-      <h2 class="weather-card__title">${data.name}</h2>
-      <p class="weather-card__temper">${displayTemp}°${currentUnit}</p>
-      <p class="no-select">${getWeatherDescription(data.code)}</p>
-    </article>
+
+  const card = document.createElement("article");
+  card.className = "weather-card";
+
+  const cardTheme = getWeatherTheme(data.code);
+  card.classList.add(cardTheme);
+
+  card.innerHTML = `
+    <h2 class="weather-card__title">${data.name}</h2>
+    <p class="weather-card__temper">${displayTemp}°${currentUnit}</p>
+    <p class="no-select">${getWeatherDescription(data.code)}</p>
   `;
+
+  link.appendChild(card);
   grid.prepend(link);
 }
 

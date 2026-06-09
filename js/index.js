@@ -45,7 +45,7 @@ function renderCard(data) {
   if (currentUnit === "F") {
     displayTemp = Math.round(data.temp * 1.8 + 32);
   }
-  link.href = `weather.html?city=${encodeURIComponent(data.name)}`;
+  link.href = `weather.html?city=${encodeURIComponent(data.name)}&lat=${data.lat}&lon=${data.lon}`;
   link.className = "weather-card__link";
   link.innerHTML = `
     <article class="weather-card">
@@ -108,15 +108,19 @@ async function initGrid() {
 
   await CurrentLocation();
 
-  for (const city of savedCities) {
+  const weatherPromises = savedCities.map(async (city) => {
     try {
-      const data = await getCityWeather(city);
-      renderCard(data);
+      return await getCityWeather(city);
     } catch (err) {
       console.warn(`Пропуск города ${city}:`, err.message);
+      return null;
     }
-    await new Promise((r) => setTimeout(r, 100));
-  }
+  });
+
+  const results = await Promise.all(weatherPromises);
+  results.reverse().forEach((data) => {
+    if (data) renderCard(data);
+  });
 }
 
 form.addEventListener("submit", async (e) => {

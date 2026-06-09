@@ -135,7 +135,9 @@ async function initGrid() {
   });
 }
 
+let isSearching = false;
 form.addEventListener("submit", async (e) => {
+  if (isSearching) return;
   e.preventDefault();
   const city = input.value.trim();
 
@@ -148,6 +150,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
+    isSearching = true;
     const data = await getCityWeather(city);
     savedCities.unshift(data.name);
     saveCities(savedCities);
@@ -155,6 +158,8 @@ form.addEventListener("submit", async (e) => {
     input.value = "";
   } catch (err) {
     alert(err.message);
+  } finally {
+    isSearching = false;
   }
 });
 

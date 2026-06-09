@@ -216,7 +216,7 @@ function renderHourlyForecast(hourly) {
 
   let hourlyHTML = `
     <div class="hourly-card">
-      <h3 class="card__label">Погода в течение суток</h3>
+      <h3 class="card__label">Погода в течение 12 часов</h3>
       <div class="hourly-scroll">
   `;
 

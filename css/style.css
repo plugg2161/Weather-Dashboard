@@ -286,6 +286,7 @@ html {
   font-weight: 500;
   color: var(--text);
   background-color: var(--surface-1);
+  transition: background-color 0.2s ease-out;
 }
 
 body {
@@ -297,6 +298,7 @@ body {
 
 header {
   background-color: var(--surface-1);
+  transition: background-color 0.2s ease-out;
 }
 
 main {
@@ -345,6 +347,7 @@ input {
   font-weight: inherit;
   color: var(--text);
   min-width: 0;
+  transition: background-color 0.2s ease-out;
 }
 
 .site-name {

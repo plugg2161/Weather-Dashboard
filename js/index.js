@@ -36,6 +36,8 @@ async function getCityWeather(cityName) {
     name: name,
     temp: weatherData.current.temperature_2m,
     code: weatherData.current.weather_code,
+    lat: latitude,
+    lon: longitude,
   };
 }
 

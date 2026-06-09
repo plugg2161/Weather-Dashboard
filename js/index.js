@@ -153,4 +153,7 @@ setupUnitToggle((newUnit) => {
   initGrid();
 });
 
-initGrid();
+window.addEventListener("pageshow", (event) => {
+  savedCities = getSavedCities();
+  initGrid();
+});

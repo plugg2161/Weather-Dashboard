@@ -170,7 +170,7 @@ setupUnitToggle((newUnit) => {
 
 setupThemeToggle();
 
-window.addEventListener("pageshow", (event) => {
+window.addEventListener("pageshow", () => {
   savedCities = getSavedCities();
   initGrid();
 });

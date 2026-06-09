@@ -17,9 +17,8 @@ const tempEl = document.querySelector(".weather__temper");
 const wthrEl = document.querySelector(".weather__wthr");
 const forecastGrid = document.querySelector(".six-days-grid");
 const detailsGrid = document.querySelector(".card-grid");
-const buttons = document.querySelectorAll(".button-group button");
-const backBtn = buttons[0];
-const favBtn = buttons[1];
+const backBtn = document.querySelector(".back-btn");
+const favBtn = document.querySelector(".favorite-btn");
 let currentUnit = localStorage.getItem("weather_unit") || "C";
 
 function getWeatherEmoji(code) {

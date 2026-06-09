@@ -123,6 +123,9 @@ ul {
 }
 
 .hourly {
+    &-card {
+        @extend .card;
+    }
     &-scroll {
         display: flex;
         gap: 8px;

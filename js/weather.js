@@ -114,7 +114,7 @@ async function loadAllData() {
     cityEl.textContent = "Ошибка";
     wthrEl.textContent = err.message;
     console.error(err);
-    document.querySelector(".hourly-section")?.remove();
+    document.querySelector(".hourly-card")?.remove();
     if (detailsGrid) {
       detailsGrid.innerHTML =
         '<li class="card"><span class="card__context">Не удалось загрузить данные</span></li>';
@@ -197,7 +197,7 @@ function renderForecast(daily) {
 }
 
 function renderHourlyForecast(hourly) {
-  document.querySelector(".hourly-section")?.remove();
+  document.querySelector(".hourly-card")?.remove();
 
   const now = new Date();
   const currentHourStr =
@@ -215,7 +215,7 @@ function renderHourlyForecast(hourly) {
   const nextHoursCount = Math.min(12, hourly.time.length - startIndex);
 
   let hourlyHTML = `
-    <div class="card">
+    <div class="hourly-card">
       <h3 class="card__label">Погода в течение суток</h3>
       <div class="hourly-scroll">
   `;

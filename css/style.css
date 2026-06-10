@@ -365,6 +365,8 @@ input {
   justify-content: space-between;
 }
 .header__btn-grp {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 

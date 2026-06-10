@@ -129,6 +129,8 @@ input {
         justify-content: space-between;
     }
     &__btn-grp {
+        display: flex;
+        align-items: center;
         gap: 8px;
     }
 }

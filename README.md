@@ -24,5 +24,5 @@ https://plugg2161.github.io/Weather-Dashboard/
 - **SASS/SCSS** (для удобства вёрстки)
 - **Vanilla JavaScript (ES6+)** (DOM-манипуляции, Fetch API, Async/Await, LocalStorage)
 - **API:** 
-  - [Open-Meteo API](https://open-meteo.com/) (погода и прогноз)
+  - [Яндекс.Погода API](https://yandex.com/dev/weather/) (погода и прогноз)
   - [Nominatim (OpenStreetMap)](https://nominatim.org/) (обратное геокодирование для определения города по координатам)

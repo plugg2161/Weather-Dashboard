@@ -1,6 +1,7 @@
 import {
+  WTTR_URL,
   GEO_URL,
-  WEATHER_URL,
+  REVERSE_GEO_URL,
   getWeatherDescription,
   setupUnitToggle,
   getSavedCities,
@@ -8,14 +9,21 @@ import {
   setupThemeToggle,
   getWeatherTheme,
 } from "./script.js";
-const REVERSE_GEO_URL = "https://nominatim.openstreetmap.org/reverse";
+
 const form = document.querySelector(".form");
 const input = document.querySelector("#city-input");
+const submitBtn = document.querySelector("#submit");
 const grid = document.querySelector(".weather-card-grid");
 let savedCities = getSavedCities();
 let currentUnit = localStorage.getItem("weather_unit") || "C";
 
+submitBtn.disabled = true;
+input.addEventListener("input", () => {
+  submitBtn.disabled = input.value.trim() === "";
+});
+
 async function getCityWeather(cityName) {
+  // Геокодинг через Open-Meteo — получаем русское название и координаты
   const geoRes = await fetch(
     `${GEO_URL}?name=${encodeURIComponent(cityName)}&count=1&language=ru&format=json`,
   );
@@ -27,17 +35,16 @@ async function getCityWeather(cityName) {
 
   const { latitude, longitude, name } = geoData.results[0];
 
-  const weatherRes = await fetch(
-    `${WEATHER_URL}?latitude=${latitude}&longitude=${longitude}` +
-      `&current=temperature_2m,weather_code` +
-      `&timezone=auto`,
-  );
-  const weatherData = await weatherRes.json();
+  // Погода через wttr.in по координатам
+  const wttrRes = await fetch(`${WTTR_URL}/${latitude},${longitude}?format=j1`);
+  if (!wttrRes.ok) throw new Error(`Ошибка загрузки погоды для "${cityName}"`);
+  const wttrData = await wttrRes.json();
+  const current = wttrData.current_condition[0];
 
   return {
-    name: name,
-    temp: weatherData.current.temperature_2m,
-    code: weatherData.current.weather_code,
+    name,
+    temp: parseFloat(current.temp_C),
+    code: parseInt(current.weatherCode),
     lat: latitude,
     lon: longitude,
   };
@@ -49,16 +56,10 @@ function renderCard(data) {
   link.className = "weather-card__link";
 
   let displayTemp = Math.round(data.temp);
-  if (currentUnit === "F") {
-    displayTemp = Math.round(data.temp * 1.8 + 32);
-  }
+  if (currentUnit === "F") displayTemp = Math.round(data.temp * 1.8 + 32);
 
   const card = document.createElement("article");
-  card.className = "weather-card";
-
-  const cardTheme = getWeatherTheme(data.code);
-  card.classList.add(cardTheme);
-
+  card.className = `weather-card ${getWeatherTheme(data.code)}`;
   card.innerHTML = `
     <h2 class="weather-card__title">${data.name}</h2>
     <p class="weather-card__temper">${displayTemp}°${currentUnit}</p>
@@ -70,10 +71,7 @@ function renderCard(data) {
 }
 
 async function CurrentLocation() {
-  if (!navigator.geolocation) {
-    console.log("Геолокация не поддерживается браузером");
-    return;
-  }
+  if (!navigator.geolocation) return;
   navigator.geolocation.getCurrentPosition(
     async (position) => {
       const { latitude, longitude } = position.coords;
@@ -82,42 +80,27 @@ async function CurrentLocation() {
           `${REVERSE_GEO_URL}?format=json&lat=${latitude}&lon=${longitude}&accept-language=ru`,
         );
         const data = await res.json();
-
         const address = data.address || {};
         const cityName =
-          address.city ||
-          address.town ||
-          address.village ||
-          address.state ||
-          "Моё местоположение";
+          address.city || address.town || address.village || address.state || "Моё местоположение";
 
-        if (
-          !savedCities.some((c) => c.toLowerCase() === cityName.toLowerCase())
-        ) {
+        if (!savedCities.some((c) => c.toLowerCase() === cityName.toLowerCase())) {
           savedCities.unshift(cityName);
           saveCities(savedCities);
-
           const weatherData = await getCityWeather(cityName);
           renderCard(weatherData);
-          console.log(`Добавлен город по геолокации: ${cityName}`);
         }
       } catch (err) {
         console.warn("Не удалось определить город по координатам:", err);
       }
     },
-    (error) => {
-      console.log(
-        "Доступ к геолокации запрещен или недоступен:",
-        error.message,
-      );
-    },
+    (error) => console.log("Доступ к геолокации запрещён:", error.message),
     { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 },
   );
 }
 
 async function initGrid() {
   grid.innerHTML = "";
-
   await CurrentLocation();
 
   const weatherPromises = savedCities.map(async (city) => {
@@ -141,10 +124,8 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const city = input.value.trim();
 
-  if (
-    !city ||
-    savedCities.some((c) => c.toLowerCase() === city.toLowerCase())
-  ) {
+  if (!city) return;
+  if (savedCities.some((c) => c.toLowerCase() === city.toLowerCase())) {
     alert("Этот город уже в списке!");
     return;
   }

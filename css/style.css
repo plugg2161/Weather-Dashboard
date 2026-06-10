@@ -75,7 +75,6 @@ button:disabled {
 
 main.weather {
   background-color: var(--surface-0);
-  transition: background-color 0.5s ease, color 0.3s ease;
 }
 main.weather.theme-sunny {
   background-color: #226cb1;
@@ -154,7 +153,6 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  transition: background-color 0.5s ease;
 }
 .card__label {
   color: var(--subtext);
@@ -169,6 +167,13 @@ ul {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+}
+
+.important-info__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
 }
 
 .six-days-grid {
@@ -258,6 +263,11 @@ ul {
   }
   .hourly-item {
     padding: 8px 0;
+  }
+}
+@media screen and (max-width: 809px) {
+  .important-info__grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 :root {

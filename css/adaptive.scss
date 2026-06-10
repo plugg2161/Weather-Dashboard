@@ -29,3 +29,8 @@
         padding: 8px 0;
     }
 }
+@media screen and (max-width: 809px) {
+    .important-info__grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

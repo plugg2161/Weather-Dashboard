@@ -29,7 +29,8 @@ function getWeatherEmoji(code) {
   if ([116, 119].includes(code)) return "⛅";
   if ([122, 143, 248, 260].includes(code)) return "☁️";
   if ([200, 386, 389, 392, 395].includes(code)) return "⛈";
-  if ([179, 227, 230, 323, 326, 329, 332, 335, 338, 368, 371].includes(code)) return "🌨";
+  if ([179, 227, 230, 323, 326, 329, 332, 335, 338, 368, 371].includes(code))
+    return "🌨";
   if ([176, 353, 356, 359, 362, 365].includes(code)) return "🌦";
   return "🌧";
 }
@@ -80,7 +81,6 @@ favBtn.addEventListener("click", () => {
 
 async function loadAllData() {
   try {
-    // Если есть координаты в URL — используем их, иначе геокодируем
     let lat = cityLat;
     let lon = cityLon;
 
@@ -139,7 +139,12 @@ function renderTemperatures(current) {
 
   const mainEl = document.querySelector("main");
   if (mainEl) {
-    mainEl.classList.remove("theme-sunny", "theme-cloudy", "theme-rainy", "theme-snowy");
+    mainEl.classList.remove(
+      "theme-sunny",
+      "theme-cloudy",
+      "theme-rainy",
+      "theme-snowy",
+    );
     mainEl.classList.add(getWeatherTheme(parseInt(current.weatherCode)));
   }
 }
@@ -153,12 +158,18 @@ function renderDetails(current, hourly) {
     { label: "💧 Влажность", val: `${current.humidity}%` },
     { label: "💨 Скорость ветра", val: `${current.windspeedKmph} км/ч` },
     { label: "🌧 Вероятность осадков", val: `${precipChance}%` },
-    { label: "🌡 Ощущается как", val: formatTemp(parseFloat(current.FeelsLikeC)) },
+    {
+      label: "🌡 Ощущается как",
+      val: formatTemp(parseFloat(current.FeelsLikeC)),
+    },
     { label: "📉 Давление", val: `${current.pressure} гПа` },
   ];
 
   cards.forEach((card, i) => {
-    if (!metrics[i]) { card.style.display = "none"; return; }
+    if (!metrics[i]) {
+      card.style.display = "none";
+      return;
+    }
     card.querySelector(".card__label").textContent = metrics[i].label;
     card.querySelector(".card__context").textContent = metrics[i].val;
   });
@@ -168,7 +179,9 @@ function renderForecast(weather) {
   forecastGrid.innerHTML = "";
   weather.forEach((day) => {
     const date = new Date(day.date);
-    const code = parseInt(day.hourly[4]?.weatherCode ?? day.hourly[0].weatherCode);
+    const code = parseInt(
+      day.hourly[4]?.weatherCode ?? day.hourly[0].weatherCode,
+    );
     const li = document.createElement("li");
     li.className = "six-days";
     li.innerHTML = `
@@ -222,10 +235,9 @@ function renderHourlyForecast(weather) {
 
   const wrapper = document.createElement("div");
   wrapper.innerHTML = hourlyHTML;
-  document.querySelector(".container").insertBefore(
-    wrapper.firstElementChild,
-    document.querySelector(".card"),
-  );
+  document
+    .querySelector(".important-info__grid")
+    .insertBefore(wrapper.firstElementChild, document.querySelector(".card"));
 }
 
 setupThemeToggle();

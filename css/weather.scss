@@ -9,9 +9,6 @@
 
 main.weather {
     background-color: var(--surface-0);
-    transition:
-        background-color 0.5s ease,
-        color 0.3s ease;
     &.theme-sunny {
         background-color: #226cb1;
         --card-bg: #00000080;
@@ -89,7 +86,6 @@ ul {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    transition: background-color 0.5s ease;
     &__label {
         color: var(--subtext);
         margin: 0;
@@ -104,6 +100,13 @@ ul {
         grid-template-columns: repeat(3, 1fr);
         gap: 16px;
     }
+}
+
+.important-info__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    align-items: start;
 }
 
 .six-days {

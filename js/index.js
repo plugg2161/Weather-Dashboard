@@ -23,7 +23,6 @@ input.addEventListener("input", () => {
 });
 
 async function getCityWeather(cityName) {
-  // Геокодинг через Open-Meteo — получаем русское название и координаты
   const geoRes = await fetch(
     `${GEO_URL}?name=${encodeURIComponent(cityName)}&count=1&language=ru&format=json`,
   );
@@ -35,7 +34,6 @@ async function getCityWeather(cityName) {
 
   const { latitude, longitude, name } = geoData.results[0];
 
-  // Погода через wttr.in по координатам
   const wttrRes = await fetch(`${WTTR_URL}/${latitude},${longitude}?format=j1`);
   if (!wttrRes.ok) throw new Error(`Ошибка загрузки погоды для "${cityName}"`);
   const wttrData = await wttrRes.json();
@@ -82,9 +80,15 @@ async function CurrentLocation() {
         const data = await res.json();
         const address = data.address || {};
         const cityName =
-          address.city || address.town || address.village || address.state || "Моё местоположение";
+          address.city ||
+          address.town ||
+          address.village ||
+          address.state ||
+          "Моё местоположение";
 
-        if (!savedCities.some((c) => c.toLowerCase() === cityName.toLowerCase())) {
+        if (
+          !savedCities.some((c) => c.toLowerCase() === cityName.toLowerCase())
+        ) {
           savedCities.unshift(cityName);
           saveCities(savedCities);
           const weatherData = await getCityWeather(cityName);

@@ -13,6 +13,8 @@ form input {
 }
 
 .weather-card {
+    display: flex;
+    flex-direction: column;
     padding: 0.75rem 1rem;
     --card-current-bg: var(--surface-0);
     background-color: var(--card-current-bg);
